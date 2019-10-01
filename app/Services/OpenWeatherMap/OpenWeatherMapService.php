@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\OpenWeatherMap;
 
 use App\Exceptions\WeatherException;
@@ -48,7 +50,7 @@ class OpenWeatherMapService
      * @return mixed
      * @throws WeatherException
      */
-    public function getWeatherByCity($city, $units)
+    public function getWeatherByCity(string $city, string $units): object
     {
         if (Redis::exists($city.':'.$units)) {
             $content = Redis::get($city.':'.$units);

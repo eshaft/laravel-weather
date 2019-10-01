@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\DaData;
 
 use App\Exceptions\DaDataException;
@@ -7,6 +9,10 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use function GuzzleHttp\json_decode;
 
+/**
+ * Class DaDataService
+ * @package App\Services\DaData
+ */
 class DaDataService
 {
     /**
@@ -24,6 +30,10 @@ class DaDataService
      */
     protected $token;
 
+    /**
+     * DaDataService constructor.
+     * @param Client $guzzle
+     */
     public function __construct(Client $guzzle)
     {
         $this->guzzle = $guzzle;
@@ -31,7 +41,14 @@ class DaDataService
         $this->token = env('DADATA_KEY');
     }
 
-    public function getCityByIp($ip)
+    /**
+     * Get city by ip
+     *
+     * @param string $ip
+     * @return object
+     * @throws DaDataException
+     */
+    public function getCityByIp(string $ip): string
     {
         try {
             $response = $this->guzzle->get($this->uri, [
